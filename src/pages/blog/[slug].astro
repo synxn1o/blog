@@ -107,9 +107,39 @@ const jsonLd = {
 
     {
       post.thumbnail && (
-        <div class="mx-auto mt-10 max-w-4xl overflow-hidden rounded-md bg-muted">
-          <Image src={post.thumbnail} alt="" class="w-full" />
-        </div>
+        <figure class="mx-auto mt-10 max-w-4xl">
+          <div class="overflow-hidden rounded-md bg-muted">
+            <Image src={post.thumbnail} alt={post.imageCredit?.caption ?? ""} class="w-full" />
+          </div>
+          {
+            post.imageCredit && (
+              <figcaption class="mt-3 text-xs leading-relaxed text-muted-foreground">
+                {post.imageCredit.caption && <span>{post.imageCredit.caption} </span>}
+                <span>
+                  Photo by{" "}
+                  <a
+                    href={post.imageCredit.authorUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    class="text-foreground/75 underline underline-offset-2 hover:text-primary"
+                  >
+                    {post.imageCredit.author}
+                  </a>{" "}
+                  on{" "}
+                  <a
+                    href={post.imageCredit.sourceUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    class="text-foreground/75 underline underline-offset-2 hover:text-primary"
+                  >
+                    {post.imageCredit.source}
+                  </a>
+                  .
+                </span>
+              </figcaption>
+            )
+          }
+        </figure>
       )
     }
 

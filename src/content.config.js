@@ -19,6 +19,15 @@ const blog = defineCollection({
       tags: z.array(z.string()).default([]),
       author: z.string(),
       thumbnail: image(),
+      imageCredit: z
+        .object({
+          caption: z.string().optional(),
+          author: z.string(),
+          authorUrl: z.string().url(),
+          source: z.string().default("Unsplash"),
+          sourceUrl: z.string().url(),
+        })
+        .optional(),
       featured: z.boolean().default(false),
     }),
 });
