@@ -1,4 +1,4 @@
-# Quiet Pages - Astro Magazine Theme
+# QuietPages - Astro Magazine Theme
 
 [![Quiet Pages theme preview](./preview.webp)](https://quietpages-eta.vercel.app/)
 
@@ -9,7 +9,7 @@
 
 Preview: [quietpages-eta.vercel.app](https://quietpages-eta.vercel.app/)
 
-Quiet Pages is a calm Astro theme for independent magazines, personal journals, and long-form editorial sites. It keeps the reading experience simple and fast while including the pieces a production-ready publication needs: archives, taxonomy pages, author pages, RSS, sitemap, structured metadata, and self-hosted fonts.
+QuietPages is a calm Astro theme for independent magazines, personal journals, and long-form editorial sites. It keeps the reading experience simple and fast while including the pieces a production-ready publication needs: archives, taxonomy pages, author pages, RSS, sitemap, structured metadata, and self-hosted fonts.
 
 ## Features
 
@@ -100,7 +100,7 @@ Required frontmatter is validated in [`src/content.config.js`](./src/content.con
 
 ## SEO
 
-Quiet Pages includes:
+QuietPages includes:
 
 - unique page titles and descriptions
 - canonical URLs generated from the configured site URL
@@ -132,7 +132,7 @@ Fonts are self-hosted in [`public/fonts`](./public/fonts). Replace those files a
 
 ## Deployment
 
-Quiet Pages works anywhere Astro can deploy. For Vercel, Netlify, or another static host, set `SITE_URL` to the production domain before building so metadata and feeds use absolute URLs.
+QuietPages works anywhere Astro can deploy. For Vercel, Netlify, or another static host, set `SITE_URL` to the production domain before building so metadata and feeds use absolute URLs.
 
 ## License
 
