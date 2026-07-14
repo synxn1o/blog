@@ -1,0 +1,52 @@
+[
+  {
+    "category": "Blogs",
+    "links": [
+      {
+        "title": "Raptitude",
+        "url": "https://www.raptitude.com",
+        "description": "A blog about getting better at being human"
+      },
+      {
+        "title": "Marginal Revolution",
+        "url": "https://marginalrevolution.com",
+        "description": "Economics and beyond"
+      },
+      {
+        "title": "Brain Pickings",
+        "url": "https://www.themarginalian.org",
+        "description": "An inventory of the meaningful life"
+      }
+    ]
+  },
+  {
+    "category": "Design",
+    "links": [
+      {
+        "title": "Typewolf",
+        "url": "https://www.typewolf.com",
+        "description": "Typography inspiration and resources"
+      },
+      {
+        "title": "Smashing Magazine",
+        "url": "https://www.smashingmagazine.com",
+        "description": "For web designers and developers"
+      }
+    ]
+  },
+  {
+    "category": "Tools",
+    "links": [
+      {
+        "title": "Astro",
+        "url": "https://astro.build",
+        "description": "The web framework for content-driven websites"
+      },
+      {
+        "title": "Tailwind CSS",
+        "url": "https://tailwindcss.com",
+        "description": "A utility-first CSS framework"
+      }
+    ]
+  }
+]

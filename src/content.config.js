@@ -4,9 +4,13 @@ import { z } from "astro/zod";
 
 const blog = defineCollection({
   loader: glob({
-    pattern: "**/index.mdx",
+    pattern: "**/*.{md,mdx}",
     base: "./src/content/blog",
-    generateId: ({ entry }) => entry.replace(/[\\/]index\.mdx$/, "").replace(/\\/g, "/"),
+    generateId: ({ entry }) =>
+      entry
+        .replace(/[\\/]index\.(?:mdx?)$/, "")
+        .replace(/\.(?:mdx?)$/, "")
+        .replace(/\\/g, "/"),
   }),
   schema: ({ image }) =>
     z.object({
@@ -21,7 +25,7 @@ const blog = defineCollection({
       category: z.string(),
       tags: z.array(z.string()).default([]),
       author: z.string(),
-      thumbnail: image(),
+      thumbnail: image().optional(),
       thumbnailAlt: z.string().default(""),
       imageCredit: z
         .object({
@@ -32,9 +36,23 @@ const blog = defineCollection({
           sourceUrl: z.string().url(),
         })
         .optional(),
+      heavy_images: z.boolean().default(false),
+      math: z.boolean().default(false),
       featured: z.boolean().default(false),
       draft: z.boolean().default(false),
     }),
 });
 
-export const collections = { blog };
+const photowall = defineCollection({
+  loader: glob({
+    pattern: "**/*.md",
+    base: "./src/content/photowall",
+    generateId: ({ entry }) => entry.replace(/\.md$/, "").replace(/\\/g, "/"),
+  }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string().optional(),
+  }),
+});
+
+export const collections = { blog, photowall };

@@ -1,9 +1,11 @@
-import { SITE, authors, categories, sortedPosts, tags } from "../lib/blog-data.js";
+import { SITE, authors, allCategories, allTags, sortedPosts } from "../lib/blog-data.js";
 
 const BASE_URL = SITE.url || "";
 
 export async function GET() {
   const posts = await sortedPosts();
+  const categories = await allCategories();
+  const tags = await allTags();
   const entries = [
     { path: "/", changefreq: "weekly", priority: "1.0" },
     { path: "/blog", changefreq: "daily", priority: "0.9" },

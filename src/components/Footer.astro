@@ -1,9 +1,10 @@
 ---
 import Icon from "./Icon.astro";
-import { SITE, categories } from "../lib/blog-data.js";
+import { SITE, allCategories } from "../lib/blog-data.js";
 import { SOCIAL_LINKS } from "../config/theme.config.ts";
 
 const { flush = false } = Astro.props;
+const categories = await allCategories();
 ---
 
 <footer class:list={[flush ? "mt-0" : "mt-24", "border-t border-border/60"]}>

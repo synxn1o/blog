@@ -1,6 +1,6 @@
 import { getCollection } from "astro:content";
-export { SITE, authors, categories, tags } from "../config/theme.config.ts";
-import { authors, categories, tags } from "../config/theme.config.ts";
+export { SITE, authors } from "../config/theme.config.ts";
+import { authors } from "../config/theme.config.ts";
 
 const isoDate = (date) => date?.toISOString().slice(0, 10);
 const wordsPerMinute = 220;
@@ -29,10 +29,37 @@ export const normalizePost = (entry) => ({
 export const posts = async () =>
   (await getCollection("blog", ({ data }) => !data.draft)).map(normalizePost);
 
+const toSlug = (name) => name.toLowerCase().replace(/\s+/g, "-");
+
+export const allCategories = async () => {
+  const all = await posts();
+  const seen = new Map();
+  for (const post of all) {
+    if (post.category && !seen.has(toSlug(post.category))) {
+      seen.set(toSlug(post.category), { slug: toSlug(post.category), name: post.category });
+    }
+  }
+  return [...seen.values()];
+};
+
+export const allTags = async () => {
+  const all = await posts();
+  const seen = new Map();
+  for (const post of all) {
+    for (const tag of post.tags || []) {
+      const slug = toSlug(tag);
+      if (!seen.has(slug)) {
+        seen.set(slug, { slug, name: tag });
+      }
+    }
+  }
+  return [...seen.values()];
+};
+
 export const getPost = async (slug) => (await posts()).find((post) => post.slug === slug);
 export const getAuthor = (slug) => authors.find((author) => author.slug === slug);
-export const getCategory = (slug) => categories.find((category) => category.slug === slug);
-export const getTag = (slug) => tags.find((tag) => tag.slug === slug);
+export const getCategory = async (slug) => (await allCategories()).find((c) => c.slug === slug);
+export const getTag = async (slug) => (await allTags()).find((t) => t.slug === slug);
 export const postsByCategory = async (slug) =>
   (await sortedPosts()).filter((post) => post.category === slug);
 export const postsByTag = async (slug) =>

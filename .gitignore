@@ -22,3 +22,11 @@ dist
 *.njsproj
 *.sln
 *.sw?
+
+#vibe coding
+AGENTS.md
+.mimocode/
+.github/
+
+# Cloudflare
+.wrangler/

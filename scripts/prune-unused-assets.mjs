@@ -2,7 +2,6 @@ import { existsSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs
 import { join } from "node:path";
 
 const distDir = "dist";
-const astroAssetsDir = join(distDir, "_astro");
 const referenceExtensions = new Set([
   ".css",
   ".html",
@@ -26,7 +25,11 @@ const walk = (dir) =>
     return entry.isDirectory() ? walk(path) : [path];
   });
 
-if (existsSync(astroAssetsDir)) {
+const astroAssetsDirs = [join(distDir, "_astro"), join(distDir, "client", "_astro")].filter(
+  existsSync,
+);
+
+for (const astroAssetsDir of astroAssetsDirs) {
   const references = walk(distDir)
     .filter((file) => referenceExtensions.has(extensionOf(file)))
     .map((file) => readFileSync(file, "utf8"))

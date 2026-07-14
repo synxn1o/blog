@@ -4,9 +4,9 @@ import { getAuthor, getCategory, formatDate } from "../lib/blog-data.js";
 
 const { post, variant = "default", hidden = false } = Astro.props;
 const author = getAuthor(post.author);
-const category = getCategory(post.category);
+const category = await getCategory(post.category);
+const categorySlug = post.category?.toLowerCase().replace(/\s+/g, "-") ?? "";
 const searchable = `${post.title} ${post.excerpt}`.toLowerCase();
-const thumbnailIsString = typeof post.thumbnail === "string";
 ---
 
 {
@@ -15,7 +15,7 @@ const thumbnailIsString = typeof post.thumbnail === "string";
       href={`/blog/${post.slug}`}
       class="group block"
       data-post-card
-      data-category={post.category}
+      data-category={categorySlug}
       data-tags={post.tags.join(" ")}
       data-search={searchable}
       hidden={hidden}
@@ -32,7 +32,7 @@ const thumbnailIsString = typeof post.thumbnail === "string";
     <article
       class="group grid gap-6 border-b border-border/60 py-8 sm:grid-cols-[1fr_220px]"
       data-post-card
-      data-category={post.category}
+      data-category={categorySlug}
       data-tags={post.tags.join(" ")}
       data-search={searchable}
       hidden={hidden}
@@ -66,30 +66,18 @@ const thumbnailIsString = typeof post.thumbnail === "string";
       {post.thumbnail && (
         <a href={`/blog/${post.slug}`} class="block" aria-label={`Read ${post.title}`}>
           <div class="aspect-[4/3] overflow-hidden rounded-md bg-muted sm:aspect-square">
-            {
-              thumbnailIsString ? (
-                <img
-                  src={post.thumbnail}
-                  alt=""
-                  width="440"
-                  height="330"
-                  loading="lazy"
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-              ) : (
-                <Image
-                  src={post.thumbnail}
-                  alt=""
-                  loading="lazy"
-                  width={440}
-                  widths={[320, 440, 640]}
-                  sizes="(min-width: 640px) 220px, calc(100vw - 40px)"
-                  format="webp"
-                  quality={64}
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-              )
-            }
+            <Image
+              src={post.thumbnail}
+              alt=""
+              loading="lazy"
+              width={440}
+              height={330}
+              widths={[320, 440, 640]}
+              sizes="(min-width: 640px) 220px, calc(100vw - 40px)"
+              format="webp"
+              quality={64}
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            />
           </div>
         </a>
       )}
@@ -98,7 +86,7 @@ const thumbnailIsString = typeof post.thumbnail === "string";
     <article
       class="group"
       data-post-card
-      data-category={post.category}
+      data-category={categorySlug}
       data-tags={post.tags.join(" ")}
       data-search={searchable}
       hidden={hidden}
@@ -106,30 +94,18 @@ const thumbnailIsString = typeof post.thumbnail === "string";
       {post.thumbnail && (
         <a href={`/blog/${post.slug}`} class="block" aria-label={`Read ${post.title}`}>
           <div class="aspect-[16/10] overflow-hidden rounded-md bg-muted">
-            {
-              thumbnailIsString ? (
-                <img
-                  src={post.thumbnail}
-                  alt=""
-                  width="640"
-                  height="400"
-                  loading="lazy"
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-              ) : (
-                <Image
-                  src={post.thumbnail}
-                  alt=""
-                  loading="lazy"
-                  width={480}
-                  widths={[320, 384, 480, 640]}
-                  sizes="(min-width: 1024px) 352px, (min-width: 640px) calc((100vw - 80px) / 2), calc(100vw - 40px)"
-                  format="webp"
-                  quality={64}
-                  class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                />
-              )
-            }
+            <Image
+              src={post.thumbnail}
+              alt=""
+              loading="lazy"
+              width={480}
+              height={300}
+              widths={[320, 384, 480, 640]}
+              sizes="(min-width: 1024px) 352px, (min-width: 640px) calc((100vw - 80px) / 2), calc(100vw - 40px)"
+              format="webp"
+              quality={64}
+              class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+            />
           </div>
         </a>
       )}

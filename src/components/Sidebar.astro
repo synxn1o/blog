@@ -2,10 +2,12 @@
 import Icon from "./Icon.astro";
 import PostCard from "./PostCard.astro";
 import Newsletter from "./Newsletter.astro";
-import { categories, tags, popularPosts, sortedPosts, authors } from "../lib/blog-data.js";
+import { allCategories, allTags, popularPosts, sortedPosts, authors } from "../lib/blog-data.js";
 
 const recent = (await sortedPosts()).slice(0, 4);
 const popular = await popularPosts();
+const categories = await allCategories();
+const tags = await allTags();
 const author = authors[0];
 ---
 

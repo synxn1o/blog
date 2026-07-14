@@ -1,6 +1,6 @@
 ---
 import { Image, getImage } from "astro:assets";
-import { getCollection, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import TableOfContents from "../../components/TableOfContents.astro";
@@ -16,17 +16,21 @@ import {
   relatedPosts,
   adjacentPosts,
   normalizePost,
+  imageSrc,
 } from "../../lib/blog-data.js";
 
 export async function getStaticPaths() {
   const entries = await getCollection("blog", ({ data }) => !data.draft);
-  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  return entries.map((entry) => ({ params: { slug: entry.id } }));
 }
 
-const { entry } = Astro.props;
+const entry = await getEntry("blog", Astro.params.slug);
+if (!entry || entry.data.draft) {
+  return new Response(null, { status: 404 });
+}
 const post = normalizePost(entry);
 const author = getAuthor(post.author);
-const category = getCategory(post.category);
+const category = await getCategory(post.category);
 const { Content, headings } = await render(entry);
 const toc = headings
   .filter((heading) => heading.depth === 2 || heading.depth === 3)
@@ -35,18 +39,21 @@ const toc = headings
     id: heading.slug,
     text: heading.text,
   }));
+const tagItems = await Promise.all(post.tags.map(async (t) => (await getTag(t)) ?? { slug: t, name: t }));
 const related = await relatedPosts(post);
 const { prev, next } = await adjacentPosts(post);
 const canonical = post.canonical ?? `/blog/${post.slug}`;
 const canonicalUrl = new URL(canonical, SITE.url).toString();
 const socialImage = post.thumbnail
-  ? await getImage({
-      src: post.thumbnail,
-      width: 1200,
-      height: 630,
-      format: "webp",
-      quality: 78,
-    })
+  ? post.heavy_images
+    ? { src: imageSrc(post.thumbnail) }
+    : await getImage({
+        src: post.thumbnail,
+        width: 1200,
+        height: 630,
+        format: "webp",
+        quality: 78,
+      })
   : undefined;
 const thumbnailUrl = socialImage ? new URL(socialImage.src, SITE.url).toString() : undefined;
 const shareUrl = canonicalUrl;
@@ -71,6 +78,7 @@ const jsonLd = {
   ogImage={socialImage?.src}
   jsonLd={jsonLd}
   flushFooter
+  math={post.math}
 >
   <div class="fixed left-0 right-0 top-0 z-50 h-0.5 bg-transparent">
     <div data-reading-progress class="h-full bg-primary transition-[width] duration-75" style="width: 0%"></div>
@@ -127,6 +135,7 @@ const jsonLd = {
               sizes="(min-width: 1024px) 896px, calc(100vw - 40px)"
               format="webp"
               quality={78}
+              inferSize
             />
           </div>
           {
@@ -170,14 +179,11 @@ const jsonLd = {
         <div class="mt-10 flex flex-wrap items-center gap-2">
           <span class="text-xs uppercase tracking-wider text-muted-foreground">Tags</span>
           {
-            post.tags.map((tag) => {
-              const item = getTag(tag);
-              return (
-                <a href={`/tags/${tag}`} class="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground hover:border-primary hover:text-primary">
-                  #{item?.name ?? tag}
-                </a>
-              );
-            })
+            tagItems.map((item) => (
+              <a href={`/tags/${item.slug}`} class="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground hover:border-primary hover:text-primary">
+                #{item.name}
+              </a>
+            ))
           }
         </div>
 

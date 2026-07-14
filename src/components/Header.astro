@@ -10,8 +10,8 @@ const inactiveClass = isHome
   ? "home-header-link"
   : "text-muted-foreground transition-colors hover:text-foreground";
 const headerClass = isHome
-  ? "sticky top-0 z-40 border-b border-transparent bg-transparent text-white"
-  : "sticky top-0 z-40 border-b border-border/60 bg-background/80 backdrop-blur-md";
+  ? "sticky top-0 z-40 border-b border-transparent bg-transparent backdrop-blur-none text-white duration-200 transition-all"
+  : "sticky top-0 z-40 border-b border-border/60 bg-background/80 duration-200 backdrop-blur-md";
 const iconClass = isHome
   ? "home-header-action inline-flex h-9 w-9 items-center justify-center rounded-full transition-colors"
   : "inline-flex h-9 w-9 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-muted hover:text-foreground";
@@ -159,7 +159,15 @@ const iconClass = isHome
 
   const setHeaderScrolled = () => {
     if (!homeHeader) return;
-    homeHeader.dataset.scrolled = window.scrollY > 8 ? "true" : "false";
+    const scrolled = window.scrollY > 8;
+    homeHeader.dataset.scrolled = scrolled ? "true" : "false";
+    if (scrolled) {
+      homeHeader.classList.remove("backdrop-blur-none");
+      homeHeader.classList.add("backdrop-blur-md");
+    } else {
+      homeHeader.classList.remove("backdrop-blur-md");
+      homeHeader.classList.add("backdrop-blur-none");
+    }
   };
   setHeaderScrolled();
   window.addEventListener("scroll", setHeaderScrolled, { passive: true });

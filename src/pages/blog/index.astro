@@ -3,9 +3,11 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Breadcrumbs from "../../components/Breadcrumbs.astro";
 import PostCard from "../../components/PostCard.astro";
 import Icon from "../../components/Icon.astro";
-import { SITE, categories, sortedPosts, tags } from "../../lib/blog-data.js";
+import { SITE, allCategories, allTags, sortedPosts } from "../../lib/blog-data.js";
 
 const posts = await sortedPosts();
+const categories = await allCategories();
+const tags = await allTags();
 ---
 
 <BaseLayout
@@ -17,7 +19,7 @@ const posts = await sortedPosts();
     <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Archive" }]} />
     <h1 class="mt-4 font-serif text-4xl font-semibold sm:text-5xl">The archive</h1>
     <p class="mt-3 max-w-xl text-muted-foreground">
-      Every piece we've published. {posts.length} essays, field notes, and interviews.
+      Every piece we've published. {posts.length} {posts.length === 1 ? "post" : "posts"} in the archive.
     </p>
 
     <form data-archive-search class="mt-8 flex items-center gap-2 border-b border-border pb-2">
