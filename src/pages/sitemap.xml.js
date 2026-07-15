@@ -1,5 +1,7 @@
 import { SITE, authors, allCategories, allTags, sortedPosts } from "../lib/blog-data.js";
 
+export const prerender = true;
+
 const BASE_URL = SITE.url || "";
 
 export async function GET() {

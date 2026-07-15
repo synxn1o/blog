@@ -1,5 +1,7 @@
 import { SITE, getAuthor, sortedPosts } from "../lib/blog-data.js";
 
+export const prerender = true;
+
 const BASE_URL = SITE.url || "";
 
 const esc = (value) =>
