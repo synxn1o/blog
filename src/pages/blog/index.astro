@@ -155,10 +155,13 @@ const tags = await allTags();
           const results = await pagefind.search(state.q);
           if (gen !== renderGeneration) return;
           const matchedUrls = new Set(
-            results.results.map((r) => new URL(r.url, window.location.origin).pathname),
+            results.results.map((r) => {
+              const path = new URL(r.url, window.location.origin).pathname;
+              return path.replace(/\/$/, "");
+            }),
           );
           matchingCards = cards.filter((card) => {
-            const href = card.querySelector("a")?.getAttribute("href") || "";
+            const href = (card.querySelector("a")?.getAttribute("href") || "").replace(/\/$/, "");
             return matchedUrls.has(href);
           });
         } catch {
