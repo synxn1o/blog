@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/prune-unused-assets.mjs",
+    "build": "astro build && node scripts/prune-unused-assets.mjs && node scripts/build-pagefind.mjs",
     "preview": "astro preview",
     "format": "prettier --write ."
   },
@@ -22,6 +22,7 @@
     "tailwindcss": "^4.3.1"
   },
   "devDependencies": {
+    "pagefind": "^1.3.0",
     "prettier": "^3.8.4",
     "vite": "^8.1.2",
     "wrangler": "^4.110.0"
