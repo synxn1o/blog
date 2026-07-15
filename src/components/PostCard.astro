@@ -6,7 +6,6 @@ const { post, variant = "default", hidden = false } = Astro.props;
 const author = getAuthor(post.author);
 const category = await getCategory(post.category);
 const categorySlug = post.category?.toLowerCase().replace(/\s+/g, "-") ?? "";
-const searchable = `${post.title} ${post.excerpt}`.toLowerCase();
 ---
 
 {
@@ -17,7 +16,6 @@ const searchable = `${post.title} ${post.excerpt}`.toLowerCase();
       data-post-card
       data-category={categorySlug}
       data-tags={post.tags.join(" ")}
-      data-search={searchable}
       hidden={hidden}
     >
       <div class="text-xs uppercase tracking-wider text-muted-foreground">{category?.name}</div>
@@ -34,7 +32,6 @@ const searchable = `${post.title} ${post.excerpt}`.toLowerCase();
       data-post-card
       data-category={categorySlug}
       data-tags={post.tags.join(" ")}
-      data-search={searchable}
       hidden={hidden}
     >
       <div>
@@ -88,7 +85,6 @@ const searchable = `${post.title} ${post.excerpt}`.toLowerCase();
       data-post-card
       data-category={categorySlug}
       data-tags={post.tags.join(" ")}
-      data-search={searchable}
       hidden={hidden}
     >
       {post.thumbnail && (
