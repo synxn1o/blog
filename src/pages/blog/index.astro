@@ -110,6 +110,7 @@ const tags = await allTags();
     const inactiveTag = ["border-border", "text-muted-foreground", "hover:text-foreground"];
 
     let pagefind = null;
+    let renderGeneration = 0;
     const pagefindReady = import(/* @vite-ignore */ "/pagefind/pagefind.js").then((mod) => {
       pagefind = mod;
     });
@@ -143,20 +144,26 @@ const tags = await allTags();
     };
 
     const render = async (state, updateInput = true) => {
+      const gen = ++renderGeneration;
       if (updateInput) input.value = state.q;
       clear.hidden = !state.q;
 
       let matchingCards = cards;
 
       if (state.q && pagefind) {
-        const results = await pagefind.search(state.q);
-        const matchedUrls = new Set(
-          results.results.map((r) => new URL(r.url, window.location.origin).pathname),
-        );
-        matchingCards = cards.filter((card) => {
-          const href = card.querySelector("a")?.getAttribute("href") || "";
-          return matchedUrls.has(href);
-        });
+        try {
+          const results = await pagefind.search(state.q);
+          if (gen !== renderGeneration) return;
+          const matchedUrls = new Set(
+            results.results.map((r) => new URL(r.url, window.location.origin).pathname),
+          );
+          matchingCards = cards.filter((card) => {
+            const href = card.querySelector("a")?.getAttribute("href") || "";
+            return matchedUrls.has(href);
+          });
+        } catch {
+          // Pagefind search failed — fall back to showing all cards
+        }
       }
 
       matchingCards = matchingCards.filter((card) => {
