@@ -5,6 +5,7 @@ category: "Notes"
 tags: [blogging, hobby]
 excerpt: Setting up blog with Hexo and GitHub Pages.
 author: "Xiaoyun"
+lang: en
 ---
 
 ## Update Aug. 6 2025

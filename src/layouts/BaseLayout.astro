@@ -13,6 +13,7 @@ const {
   jsonLd,
   flushFooter = false,
   math = false,
+  lang = "en",
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString() || SITE.url;
@@ -31,7 +32,7 @@ const ogImageUrl = absoluteUrl(ogImage);
 ---
 
 <!doctype html>
-<html lang="zh">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
