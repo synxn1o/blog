@@ -8,7 +8,7 @@ Astro 7 magazine theme. Single-package, no monorepo.
 
 ```bash
 npm run dev        # astro dev server
-npm run build      # astro build + prune unused raster images (scripts/prune-unused-assets.mjs)
+npm run build      # astro build + prune unused raster images (scripts/prune-unused-assets.mjs) + build Pagefind index (scripts/build-pagefind.mjs)
 npm run preview    # serve production build
 npm run format     # prettier --write .
 ```
@@ -29,7 +29,8 @@ Both `package-lock.json` and `bun.lock` exist. The project uses npm for scripts.
 - **Layouts**: single `src/layouts/BaseLayout.astro`
 - **Styles**: `src/styles.css` — Tailwind v4 import, `@font-face` declarations, CSS custom properties (oklch), custom `@utility` blocks (`prose-article`, `callout`), dark mode variant.
 - **SEO files**: `src/pages/sitemap.xml.js`, `src/pages/robots.txt.js`, `src/pages/rss.xml.js`
-- **Post-build script**: `scripts/prune-unused-assets.mjs` removes unreferenced `.jpg/.png` from `dist/_astro/`
+- **Post-build scripts**: `scripts/prune-unused-assets.mjs` removes unreferenced `.jpg/.png` from `dist/_astro/`; `scripts/build-pagefind.mjs` builds the Pagefind search index from `dist/client/`.
+- **Search**: Pagefind (post-build full-text indexing). Headless API in archive page (`src/pages/blog/index.astro`). Scoped to `data-pagefind-body` on `<article>` to exclude nav/footer. CJK character-level indexing is automatic. Single `en` language index used so all posts are searchable from any page — per-post `lang` field exists in schema but is not wired to `<html lang>` to avoid splitting the index.
 - **Remote images**: Only allowed from `blogimg.liuxy.space` (configured in `astro.config.mjs` `image.remotePatterns`).
 
 ## Tailwind CSS 4 — gotchas
@@ -52,7 +53,7 @@ generateId: ({ entry }) => entry.replace(/[\\/]index\.(?:mdx?)$/, "").replace(/\
 
 Required frontmatter: `title`, `excerpt`, `date`, `category`, `tags`, `author`.
 
-Optional: `thumbnail` (image), `thumbnailAlt` (defaults to `""`), `seoTitle`, `seoDescription`, `canonical`, `updated`, `readingTime`, `featured`, `draft`, `heavy_images`, `math`, `imageCredit`.
+Optional: `thumbnail` (image), `thumbnailAlt` (defaults to `""`), `seoTitle`, `seoDescription`, `canonical`, `updated`, `readingTime`, `featured`, `draft`, `heavy_images`, `math`, `imageCredit`, `lang` (defaults to `"zh"`).
 
 `readingTime` is auto-estimated from body if omitted (220 wpm, code blocks stripped).
 
