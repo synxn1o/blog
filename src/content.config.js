@@ -37,6 +37,7 @@ const blog = defineCollection({
         })
         .optional(),
       heavy_images: z.boolean().default(false),
+      toc: z.boolean().default(true),
       math: z.boolean().default(false),
       featured: z.boolean().default(false),
       draft: z.boolean().default(false),
