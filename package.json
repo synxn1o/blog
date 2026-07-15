@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build && node scripts/prune-unused-assets.mjs && node scripts/build-pagefind.mjs",
+    "build": "astro build && node scripts/fix-wrangler-config.mjs && node scripts/prune-unused-assets.mjs && node scripts/build-pagefind.mjs",
     "preview": "astro preview",
     "format": "prettier --write ."
   },
