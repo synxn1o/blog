@@ -86,7 +86,7 @@ const jsonLd = {
     <div data-reading-progress class="h-full bg-primary transition-[width] duration-75" style="width: 0%"></div>
   </div>
 
-  <article class="mx-auto max-w-6xl px-5 py-10" data-pagefind-meta={`category:${post.category ?? ""}`} data-pagefind-filter={`tag:${post.tags.join(",")}`}>
+  <article class="mx-auto max-w-6xl px-5 py-10" data-pagefind-body data-pagefind-meta={`category:${post.category ?? ""}`} data-pagefind-filter={`tag:${post.tags.join(",")}`}>
     <Breadcrumbs
       items={[
         { label: "Home", to: "/" },
