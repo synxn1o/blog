@@ -12,7 +12,7 @@ const site =
 
 export default defineConfig({
   site,
-  output: "server",
+  output: "static",
   adapter: cloudflare({ imageService: "compile" }),
   cache: {
     provider: cacheCloudflare(),
