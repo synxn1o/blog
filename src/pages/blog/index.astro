@@ -113,7 +113,7 @@ const tags = await allTags();
     let renderGeneration = 0;
     const pagefindReady = import(/* @vite-ignore */ "/pagefind/pagefind.js").then((mod) => {
       pagefind = mod;
-    });
+    }).catch(() => {});
 
     const stateFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
@@ -154,11 +154,10 @@ const tags = await allTags();
         try {
           const results = await pagefind.search(state.q);
           if (gen !== renderGeneration) return;
+          const data = await Promise.all(results.results.map((r) => r.data()));
+          if (gen !== renderGeneration) return;
           const matchedUrls = new Set(
-            results.results.map((r) => {
-              const path = new URL(r.url, window.location.origin).pathname;
-              return path.replace(/\/$/, "");
-            }),
+            data.map((d) => d.url.replace(/\/$/, "").replace(/^https?:\/\/[^/]+/, "")),
           );
           matchingCards = cards.filter((card) => {
             const href = (card.querySelector("a")?.getAttribute("href") || "").replace(/\/$/, "");
