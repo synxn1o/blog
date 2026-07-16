@@ -48,24 +48,16 @@ export const SOCIAL_LINKS = [
   { href: `mailto:${CONTACT.email}`, label: "Email", icon: "mail" },
 ];
 
-export const authors = [
-  {
-    slug: "Xiaoyun",
-    name: "Xiaoyun",
-    url: "https://liuxy.space",
-    bio: "Traveler, photographer, occasional writer.",
-    avatar: "https://blogimg.liuxy.space/img/favicons/avatar.JPG",
-    display: false, // blog owner — not shown in friend list
-  },
-  // Friends & contributors — displayed on About/Links when display !== false
-  {
-     slug: "zerong",
-     name: "Zerong",
-     url: "https://zerong-sun.github.io/",
-     bio: "Stay Curious • Science • Discover World",
-     avatar: "https://zerong-sun.github.io/images/icon.jpg",
-  },
-];
+import authorsData from "../data/authors.json";
+
+export const authors: {
+  slug: string;
+  name: string;
+  url?: string;
+  bio: string;
+  avatar: string;
+  display?: boolean;
+}[] = authorsData;
 
 // Categories are dynamically derived from post frontmatter (see blog-data.js)
 export const categories: { slug: string; name: string }[] = [];

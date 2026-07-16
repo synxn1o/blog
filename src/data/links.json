@@ -3,20 +3,21 @@
     "category": "Blogs I Read",
     "links": [
       {
-        "title": "Raptitude",
-        "url": "https://www.raptitude.com",
-        "description": "A blog about getting better at being human"
-      },
-      {
-        "title": "Brain Pickings",
-        "url": "https://www.themarginalian.org",
-        "description": "An inventory of the meaningful life"
+        "title": "橘鸦AI早报",
+        "url": "https://daily.juya.uk/",
+        "description": "Daily AI news."
       }
     ]
   },
   {
     "category": "Photography",
-    "links": []
+    "links": [
+      {
+        "title": "Alex Webb",
+        "url": "https://www.magnumphotos.com/photographer/alex-webb/",
+        "description": "A famous Magnum photographer."
+      }
+    ]
   },
   {
     "category": "Travel",
@@ -25,11 +26,6 @@
   {
     "category": "Other",
     "links": [
-      {
-        "title": "Astro",
-        "url": "https://astro.build",
-        "description": "The web framework powering this site"
-      }
     ]
   }
 ]
