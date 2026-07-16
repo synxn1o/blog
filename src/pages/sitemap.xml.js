@@ -12,6 +12,7 @@ export async function GET() {
     { path: "/blog", changefreq: "daily", priority: "0.9" },
     { path: "/about", changefreq: "monthly", priority: "0.6" },
     { path: "/links", changefreq: "monthly", priority: "0.5" },
+    { path: "/photowall", changefreq: "monthly", priority: "0.6" },
     ...posts.map((post) => ({
       path: `/blog/${post.slug}`,
       lastmod: post.updated || post.date,

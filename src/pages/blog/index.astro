@@ -46,10 +46,10 @@ const tags = await allTags();
     <div class="mt-6 space-y-4 text-sm">
       <div class="flex flex-wrap items-center gap-2">
         <span class="text-xs uppercase tracking-wider text-muted-foreground">Categories</span>
-        <a data-category-filter="" href="/blog" class="rounded-full border px-3 py-1 text-xs">All</a>
+        <a data-category-filter="" href="/blog" class="rounded-full border px-3 py-1 text-xs" aria-pressed="false">All</a>
         {
           categories.map((category) => (
-            <a data-category-filter={category.slug} href={`/categories/${category.slug}`} class="rounded-full border px-3 py-1 text-xs">
+            <a data-category-filter={category.slug} href={`/categories/${category.slug}`} class="rounded-full border px-3 py-1 text-xs" aria-pressed="false">
               {category.name}
             </a>
           ))
@@ -59,7 +59,7 @@ const tags = await allTags();
         <span class="text-xs uppercase tracking-wider text-muted-foreground">Tags</span>
         {
           tags.map((tag) => (
-            <a data-tag-filter={tag.slug} href={`/blog?tag=${tag.slug}`} class="rounded-full border px-2.5 py-0.5 text-xs">
+            <a data-tag-filter={tag.slug} href={`/blog?tag=${tag.slug}`} class="rounded-full border px-2.5 py-0.5 text-xs" aria-pressed="false">
               #{tag.name}
             </a>
           ))
@@ -111,9 +111,17 @@ const tags = await allTags();
 
     let pagefind = null;
     let renderGeneration = 0;
-    const pagefindReady = import(/* @vite-ignore */ "/pagefind/pagefind.js").then((mod) => {
-      pagefind = mod;
-    }).catch(() => {});
+    let pagefindLoading = null;
+
+    const loadPagefind = () => {
+      if (pagefind || pagefindLoading) return pagefindLoading;
+      pagefindLoading = import(/* @vite-ignore */ "/pagefind/pagefind.js")
+        .then((mod) => {
+          pagefind = mod;
+        })
+        .catch(() => {});
+      return pagefindLoading;
+    };
 
     const stateFromUrl = () => {
       const params = new URLSearchParams(window.location.search);
@@ -140,6 +148,7 @@ const tags = await allTags();
         const isActive = (link.getAttribute(attr) || "") === activeValue;
         active.forEach((className) => link.classList.toggle(className, isActive));
         inactive.forEach((className) => link.classList.toggle(className, !isActive));
+        link.setAttribute("aria-pressed", String(isActive));
       });
     };
 
@@ -192,8 +201,13 @@ const tags = await allTags();
 
     let state = stateFromUrl();
 
-    await pagefindReady;
     render(state);
+
+    // Load pagefind on search interaction
+    input.addEventListener("focus", loadPagefind);
+    input.addEventListener("input", () => {
+      if (state.q) loadPagefind();
+    });
 
     form.addEventListener("submit", (event) => {
       event.preventDefault();

@@ -131,6 +131,7 @@ const firstPhoto = parseImages(photoEntry?.body)[0];
           type="button"
           data-home-filter=""
           class="rounded-full border px-3 py-1 text-xs transition-colors border-foreground bg-foreground text-background"
+          aria-pressed="true"
         >
           All
         </button>
@@ -140,6 +141,7 @@ const firstPhoto = parseImages(photoEntry?.body)[0];
               type="button"
               data-home-filter={category.slug}
               class="rounded-full border px-3 py-1 text-xs transition-colors border-border text-muted-foreground hover:text-foreground"
+              aria-pressed="false"
             >
               {category.name}
             </button>
@@ -206,6 +208,7 @@ const firstPhoto = parseImages(photoEntry?.body)[0];
       button.classList.toggle(activeClasses[1], active);
       button.classList.toggle(activeClasses[2], active);
       inactiveClasses.forEach((className) => button.classList.toggle(className, !active));
+      button.setAttribute("aria-pressed", String(active));
     };
 
     let currentCategory = "";

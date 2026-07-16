@@ -14,6 +14,9 @@ const {
   flushFooter = false,
   math = false,
   lang = "en",
+  articlePublishedTime,
+  articleModifiedTime,
+  articleAuthor,
 } = Astro.props;
 
 const siteUrl = Astro.site?.toString() || SITE.url;
@@ -45,6 +48,9 @@ const ogImageUrl = absoluteUrl(ogImage);
     <meta property="og:site_name" content={SITE.name} />
     {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
     {ogImageUrl && <meta property="og:image" content={ogImageUrl} />}
+    {ogType === "article" && articlePublishedTime && <meta property="article:published_time" content={articlePublishedTime} />}
+    {ogType === "article" && articleModifiedTime && <meta property="article:modified_time" content={articleModifiedTime} />}
+    {ogType === "article" && articleAuthor && <meta property="article:author" content={articleAuthor} />}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />

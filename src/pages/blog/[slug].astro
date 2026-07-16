@@ -69,6 +69,11 @@ const jsonLd = {
   dateModified: post.updated || post.date,
   image: thumbnailUrl,
   author: { "@type": "Person", name: author?.name },
+  publisher: {
+    "@type": "Organization",
+    name: SITE.name,
+    logo: { "@type": "ImageObject", url: `${SITE.url}/favicon-32x32.png` },
+  },
   mainEntityOfPage: canonicalUrl,
 };
 ---
@@ -82,12 +87,16 @@ const jsonLd = {
   jsonLd={jsonLd}
   flushFooter
   math={post.math}
+  lang={post.lang}
+  articlePublishedTime={post.date}
+  articleModifiedTime={post.updated}
+  articleAuthor={author?.name}
 >
   <div class="fixed left-0 right-0 top-0 z-50 h-0.5 bg-transparent">
     <div data-reading-progress class="h-full bg-primary transition-[width] duration-75" style="width: 0%"></div>
   </div>
 
-  <article class="mx-auto max-w-6xl px-5 py-10" data-pagefind-body data-pagefind-meta={`category:${post.category ?? ""}`} data-pagefind-filter={`tag:${post.tags.join(",")}`}>
+  <article class="mx-auto max-w-6xl px-5 py-10" data-pagefind-body data-pagefind-lang="en" data-pagefind-meta={`category:${post.category ?? ""}`} data-pagefind-filter={`tag:${post.tags.join(",")}`}>
     <Breadcrumbs
       items={[
         { label: "Home", to: "/" },

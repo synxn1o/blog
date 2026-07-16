@@ -30,8 +30,9 @@ export const normalizePost = (entry) => ({
   readingTime: entry.data.readingTime ?? estimateReadingTime(entry.body, entry.data.lang),
 });
 
+let _posts;
 export const posts = async () =>
-  (await getCollection("blog", ({ data }) => !data.draft)).map(normalizePost);
+  (_posts ??= (await getCollection("blog", ({ data }) => !data.draft)).map(normalizePost));
 
 const toSlug = (name) => name.toLowerCase().replace(/\s+/g, "-");
 

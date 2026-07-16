@@ -94,7 +94,7 @@ const iconClass = isHome
     </form>
   </div>
 
-  <div id="mobile-menu" data-menu-panel class="border-t border-border/60 bg-background text-foreground md:hidden" hidden>
+  <div id="mobile-menu" data-menu-panel class="border-t border-border/60 bg-background text-foreground md:hidden" hidden role="dialog" aria-modal="true" aria-label="Mobile navigation menu">
     <nav class="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-3" aria-label="Mobile navigation">
       {
         NAVIGATION.map((item) => {
@@ -140,6 +140,17 @@ const iconClass = isHome
     closeIcon.hidden = !open;
     menuToggle?.setAttribute("aria-expanded", String(open));
     setPanelOpen();
+
+    // Add inert to main content and footer when menu is open
+    const mainContent = document.getElementById("main-content");
+    const footer = document.querySelector("footer");
+    if (open) {
+      mainContent?.setAttribute("inert", "");
+      footer?.setAttribute("inert", "");
+    } else {
+      mainContent?.removeAttribute("inert");
+      footer?.removeAttribute("inert");
+    }
   };
 
   const setSearch = (open) => {
