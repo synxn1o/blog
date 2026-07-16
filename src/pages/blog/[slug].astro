@@ -32,6 +32,7 @@ if (!entry || entry.data.draft) {
 }
 const post = normalizePost(entry);
 const author = getAuthor(post.author);
+const authorUrl = post.original_link ?? author.url ?? null;
 const category = await getCategory(post.category);
 const { Content, headings } = await render(entry);
 const toc = headings
@@ -111,10 +112,17 @@ const jsonLd = {
       <div class="mt-6 flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-muted-foreground">
         {
           author && (
-            <a href={`/authors/${author.slug}`} class="flex items-center gap-2 hover:text-foreground">
-              <img src={author.avatar} alt="" width="28" height="28" class="h-7 w-7 rounded-full" />
-              {author.name}
-            </a>
+            authorUrl ? (
+              <a href={authorUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-foreground">
+                <img src={author.avatar} alt="" width="28" height="28" class="h-7 w-7 rounded-full" />
+                {author.name}
+              </a>
+            ) : (
+              <span class="flex items-center gap-2">
+                <img src={author.avatar} alt="" width="28" height="28" class="h-7 w-7 rounded-full" />
+                {author.name}
+              </span>
+            )
           )
         }
         <span>&middot;</span>
@@ -182,7 +190,7 @@ const jsonLd = {
           <span class="text-xs uppercase tracking-wider text-muted-foreground">Tags</span>
           {
             tagItems.map((item) => (
-              <a href={`/tags/${item.slug}`} class="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground hover:border-primary hover:text-primary">
+              <a href={`/blog?tag=${item.slug}`} class="rounded-full border border-border px-2.5 py-1 text-xs text-muted-foreground hover:border-primary hover:text-primary">
                 #{item.name}
               </a>
             ))
@@ -205,9 +213,13 @@ const jsonLd = {
               <img src={author.avatar} alt="" width="56" height="56" class="h-14 w-14 rounded-full" />
               <div>
                 <div class="text-xs uppercase tracking-wider text-muted-foreground">Written by</div>
-                <a href={`/authors/${author.slug}`} class="font-serif text-lg font-semibold hover:text-primary">
-                  {author.name}
-                </a>
+                {authorUrl ? (
+                  <a href={authorUrl} target="_blank" rel="noopener noreferrer" class="font-serif text-lg font-semibold hover:text-primary">
+                    {author.name}
+                  </a>
+                ) : (
+                  <div class="font-serif text-lg font-semibold">{author.name}</div>
+                )}
                 <p class="mt-1 text-sm text-muted-foreground">{author.bio}</p>
               </div>
             </div>
