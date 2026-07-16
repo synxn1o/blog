@@ -1,67 +1,35 @@
 ---
 import { FORMS } from "../config/theme.config.ts";
+import Icon from "./Icon.astro";
 
 const { compact = false } = Astro.props;
-const hasNewsletterEndpoint = Boolean(FORMS.newsletter.action);
-const newsletterAction = hasNewsletterEndpoint ? FORMS.newsletter.action : "/contact";
-const newsletterMethod = hasNewsletterEndpoint ? FORMS.newsletter.method : "get";
-const newsletterEnctype = hasNewsletterEndpoint ? FORMS.newsletter.enctype : undefined;
 ---
 
 {
   compact ? (
     <div>
-      <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Newsletter</div>
-      <p class="mt-2 text-sm text-muted-foreground">A short letter, once a fortnight. No noise.</p>
-      <form
-        action={newsletterAction}
-        method={newsletterMethod}
-        enctype={newsletterEnctype}
-        class="mt-3 flex gap-2"
+      <div class="text-xs font-medium uppercase tracking-wider text-muted-foreground">Subscribe</div>
+      <p class="mt-2 text-sm text-muted-foreground">Get new posts via RSS.</p>
+      <a
+        href="/rss.xml"
+        class="mt-3 inline-flex items-center gap-1.5 rounded-md border border-border px-3 py-2 text-sm font-medium hover:border-primary hover:text-primary"
       >
-        <label for="newsletter-email-compact" class="sr-only">Email address</label>
-        <input
-          id="newsletter-email-compact"
-          name="email"
-          type="email"
-          required
-          autocomplete="email"
-          placeholder="you@example.com"
-          class="min-w-0 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm outline-none focus:border-primary"
-        />
-        <button type="submit" class="rounded-md bg-foreground px-3 py-2 text-sm font-medium text-background transition-opacity hover:opacity-90">
-          Join
-        </button>
-      </form>
+        <Icon name="rss" class="h-3.5 w-3.5" /> RSS Feed
+      </a>
     </div>
   ) : (
     <section data-newsletter-cta class="border-t border-border/60 pt-16 pb-10">
       <div class="mx-auto max-w-2xl px-5 text-center">
-        <h2 class="font-serif text-3xl font-semibold sm:text-4xl">A quieter inbox.</h2>
+        <h2 class="font-serif text-3xl font-semibold sm:text-4xl">Stay in the loop.</h2>
         <p class="mt-3 text-muted-foreground">
-          One thoughtful letter every other Sunday &mdash; new essays, things worth reading, and the occasional photograph.
+          Subscribe via RSS &mdash; new travelogues, photographs, and the occasional thought.
         </p>
-        <form
-          action={newsletterAction}
-          method={newsletterMethod}
-          enctype={newsletterEnctype}
-          class="mx-auto mt-6 flex max-w-md flex-col gap-2 sm:flex-row"
+        <a
+          href="/rss.xml"
+          class="mt-6 inline-flex items-center gap-2 rounded-md bg-foreground px-5 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90"
         >
-          <label for="newsletter-email" class="sr-only">Email address</label>
-          <input
-            id="newsletter-email"
-            name="email"
-            type="email"
-            required
-            autocomplete="email"
-            placeholder="you@example.com"
-            class="min-w-0 flex-1 rounded-md border border-input bg-background px-4 py-3 text-sm outline-none focus:border-primary"
-          />
-          <button type="submit" class="rounded-md bg-foreground px-5 py-3 text-sm font-medium text-background transition-opacity hover:opacity-90">
-            Subscribe
-          </button>
-        </form>
-        <p class="mt-3 text-xs text-muted-foreground">Free. Unsubscribe in one click.</p>
+          <Icon name="rss" class="h-4 w-4" /> Subscribe via RSS
+        </a>
       </div>
     </section>
   )

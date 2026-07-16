@@ -2,7 +2,7 @@
 title: Setting up Blog
 date: 2024-09-02
 category: "Notes"
-tags: [blogging, hobby]
+tags: [tech]
 excerpt: Setting up blog with Hexo and GitHub Pages.
 author: "Xiaoyun"
 lang: en

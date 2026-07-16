@@ -1,17 +1,17 @@
 const siteUrl = (
   import.meta.env.SITE_URL ||
   import.meta.env.PUBLIC_SITE_URL ||
-  "https://quietpages-eta.vercel.app"
+  "https://liuxy.space"
 ).replace(/\/$/, "");
 
 export const SITE = {
-  name: "Quiet Pages",
+  name: "Xiaoyun's blog",
   description:
-    "An independent magazine on writing, design, and the slow web. Published occasionally, read closely.",
+    "A personal travel blog sharing travel logs, photography, life hacks, and tech tips. Explore honest observations from my journeys and daily life.",
   url: siteUrl,
   locale: "en-US",
   language: "en",
-  repositoryUrl: "https://github.com/andreialba/quietpages",
+  repositoryUrl: "https://github.com/synxn1o/blog",
 };
 
 export const NAVIGATION = [
@@ -20,7 +20,6 @@ export const NAVIGATION = [
   { to: "/photowall", label: "Photowall" },
   { to: "/links", label: "Links" },
   { to: "/about", label: "About" },
-  { to: "/contact", label: "Contact" },
 ];
 
 export const CONTACT = {
@@ -53,36 +52,23 @@ export const authors = [
   {
     slug: "Xiaoyun",
     name: "Xiaoyun",
-    bio: "Writer & editor covering travel, photo, and slow technology.",
-    longBio:
-      "",
+    url: "https://liuxy.space",
+    bio: "Traveler, photographer, occasional writer.",
     avatar: "https://blogimg.liuxy.space/img/favicons/avatar.JPG",
+    display: false, // blog owner — not shown in friend list
   },
+  // Friends & contributors — displayed on About/Links when display !== false
   {
-    slug: "zerong",
-    name: "Zerong",
-    bio: "https://zerong-sun.github.io/",
-    longBio:
-      "",
-    avatar: "https://zerong-sun.github.io/images/icon.jpg",
+     slug: "zerong",
+     name: "Zerong",
+     url: "https://zerong-sun.github.io/",
+     bio: "Stay Curious • Science • Discover World",
+     avatar: "https://zerong-sun.github.io/images/icon.jpg",
   },
 ];
 
-export const categories = [
-  { slug: "essays", name: "Essays" },
-  { slug: "design", name: "Design" },
-  { slug: "engineering", name: "Engineering" },
-  { slug: "field-notes", name: "Field Notes" },
-  { slug: "interviews", name: "Interviews" },
-];
+// Categories are dynamically derived from post frontmatter (see blog-data.js)
+export const categories: { slug: string; name: string }[] = [];
 
-export const tags = [
-  { slug: "writing", name: "Writing" },
-  { slug: "typography", name: "Typography" },
-  { slug: "minimalism", name: "Minimalism" },
-  { slug: "tools", name: "Tools" },
-  { slug: "travel", name: "Travel" },
-  { slug: "process", name: "Process" },
-  { slug: "web", name: "Web" },
-  { slug: "books", name: "Books" },
-];
+// Tags are dynamically derived from post frontmatter (see blog-data.js)
+export const tags: { slug: string; name: string }[] = [];

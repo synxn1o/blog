@@ -22,6 +22,8 @@ dist
 *.njsproj
 *.sln
 *.sw?
+*.env
+.env*
 
 #vibe coding
 AGENTS.md

@@ -5,7 +5,7 @@ import Footer from "../components/Footer.astro";
 import { SITE, imageSrc } from "../lib/blog-data.js";
 
 const {
-  title = `${SITE.name} - A quiet magazine on writing, design, and the slow web`,
+  title = `${SITE.name} -- ideas about my travels, photos, and life.`,
   description = SITE.description,
   canonical,
   ogType = "website",
@@ -50,7 +50,7 @@ const ogImageUrl = absoluteUrl(ogImage);
     <meta name="twitter:description" content={description} />
     {ogImageUrl && <meta name="twitter:image" content={ogImageUrl} />}
     {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
