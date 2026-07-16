@@ -140,7 +140,7 @@ const tags = await allTags();
       if (state.tag) params.set("tag", state.tag);
       if (state.page > 1) params.set("page", String(state.page));
       const query = params.toString();
-      history.pushState(state, "", query ? `/blog?${query}` : "/blog");
+      history.pushState(state, "", query ? `/blog/?${query}` : "/blog/");
     };
 
     const applyLinkState = (links, activeValue, active, inactive, attr) => {
@@ -201,7 +201,8 @@ const tags = await allTags();
 
     let state = stateFromUrl();
 
-    render(state);
+    if (state.q) (loadPagefind() ?? Promise.resolve()).then(() => render(state));
+    else render(state);
 
     // Load pagefind on search interaction
     input.addEventListener("focus", loadPagefind);
