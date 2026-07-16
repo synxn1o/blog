@@ -69,7 +69,7 @@ export const getAuthor = (slug) => {
 export const getCategory = async (slug) => (await allCategories()).find((c) => c.slug === slug);
 export const getTag = async (slug) => (await allTags()).find((t) => t.slug === slug);
 export const postsByCategory = async (slug) =>
-  (await sortedPosts()).filter((post) => post.category === slug);
+  (await sortedPosts()).filter((post) => toSlug(post.category) === slug);
 export const postsByTag = async (slug) =>
   (await sortedPosts()).filter((post) => (post.tags ?? []).includes(slug));
 export const sortedPosts = async () =>
