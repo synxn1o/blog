@@ -1,11 +1,50 @@
 ---
 title: Setting up Blog
-date: 2024-09-02
+date: 2024-08-02
 category: "Notes"
 tags: [tech]
 excerpt: Setting up blog with Hexo and GitHub Pages.
 author: "Xiaoyun"
 lang: en
+---
+
+## Update Jul. 2026 — Migrated to Astro (QuietPages)
+
+Switched from Hexo to **Astro 7** for better performance, modern DX, and native MDX support. The new site used theme [**QuietPages**](https://github.com/xocothemes/quietpages).
+
+### Tech Stack
+
+| Layer | Choice |
+|-------|--------|
+| Framework | Astro 7.0.9 |
+| Styling | Tailwind CSS 4 (Vite plugin, no `tailwind.config.js`) |
+| Content | MDX + content collections (`src/content/blog/`) |
+| Search | Pagefind (post-build full-text indexing) |
+| Deployment | Cloudflare Workers (`@astrojs/cloudflare` adapter) |
+| Images | Remote CDN at `blogimg.liuxy.space`, build-time optimization |
+| Fonts | Self-hosted woff2: Inter, Fraunces, JetBrains Mono |
+
+### Key Architecture Decisions
+
+- **Tailwind CSS 4**: All config is CSS-based — `@import "tailwindcss"`, `@theme inline { ... }` tokens, `@custom-variant dark`, `@utility` blocks. No JS config file.
+- **Pagefind headless API**: Keeps existing UI components intact; Pagefind handles text search only via `pagefind.search()`. Category/tag filtering stays DOM-based.
+- **`imageService: "compile"`**: Cloudflare adapter with `output: 'static'` requires explicit compile mode — the default generates `/_image` URLs that 404 in production.
+- **Heavy images mode**: Posts with many remote images set `heavy_images: true` to bypass Astro's image pipeline, using plain `<img>` tags instead.
+- **CJK support**: Single `en` language index for Pagefind so all posts are searchable from any page. Per-post `lang` field exists but doesn't split the index.
+
+### Build Pipeline
+
+```
+astro build → prune unused assets (scripts/prune-unused-assets.mjs) → build Pagefind index (scripts/build-pagefind.mjs)
+```
+
+### Content Structure
+
+- Blog posts: `src/content/blog/<slug>/index.mdx` (with local images) or `<slug>.md`
+- Photo gallery: `src/content/photowall/`
+- Config: `src/config/theme.config.ts` — site metadata, navigation, authors, categories
+- SEO: `sitemap.xml.js`, `robots.txt.js`, `rss.xml.js`
+
 ---
 
 ## Update Aug. 6 2025
@@ -56,4 +95,4 @@ The blog image bucket is now at [https://blogimg.liuxy.space](https://blogimg.li
 
 1.  After 3 month, I can update the new SSL certificate signed by Cloudflare. (√)
 2.  I can host the site to Cloudflare after 60 days (2mo). (x, it takes money)
-3.  I need to find a way to automate the process of uploading files to the CDN. 
+3.  I need to find a way to automate the process of uploading files to the CDN.
