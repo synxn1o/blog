@@ -150,6 +150,8 @@ const jsonLd = {
               src={post.thumbnail}
               alt={post.thumbnailAlt || post.imageCredit?.caption || ""}
               class="w-full"
+              style="aspect-ratio:16/10"
+              onload="this.style.aspectRatio='auto'"
               widths={[640, 960, 1280, 1600]}
               sizes="(min-width: 1024px) 896px, calc(100vw - 40px)"
               format="webp"

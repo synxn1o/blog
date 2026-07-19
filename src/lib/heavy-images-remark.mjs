@@ -12,7 +12,7 @@ export default function heavyImagesRemark() {
       if (!parent || index == null) return;
       parent.children[index] = {
         type: "html",
-        value: `<img src="${escAttr(node.url)}" alt="${escAttr(node.alt || "")}" loading="lazy" decoding="async" />`,
+        value: `<div class="bg-muted overflow-hidden" style="margin:1.5rem 0"><img src="${escAttr(node.url)}" alt="${escAttr(node.alt || "")}" loading="lazy" decoding="async" class="block w-full" style="aspect-ratio:3/2;border-radius:8px;margin:0" onload="this.style.aspectRatio='auto'" /></div>`,
       };
     });
   };

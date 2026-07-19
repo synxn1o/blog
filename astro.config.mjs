@@ -3,6 +3,7 @@ import mdx from "@astrojs/mdx";
 import tailwindcss from "@tailwindcss/vite";
 import cloudflare from "@astrojs/cloudflare";
 import { cacheCloudflare } from "@astrojs/cloudflare/cache";
+import { unified } from "@astrojs/markdown-remark";
 import remarkMath from "remark-math";
 import rehypeKatex from "rehype-katex";
 import heavyImagesRemark from "./src/lib/heavy-images-remark.mjs";
@@ -21,8 +22,10 @@ export default defineConfig({
     remotePatterns: [{ protocol: "https", hostname: "blogimg.liuxy.space" }],
   },
   markdown: {
-    remarkPlugins: [remarkMath, heavyImagesRemark],
-    rehypePlugins: [rehypeKatex],
+    processor: unified({
+      remarkPlugins: [remarkMath, heavyImagesRemark],
+      rehypePlugins: [rehypeKatex],
+    }),
   },
   integrations: [mdx()],
   vite: {

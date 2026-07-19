@@ -448,3 +448,19 @@
   border-radius: 0 8px 8px 0;
   margin: 1.5rem 0;
 }
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.bg-muted:has(img:not([complete])) {
+  background: linear-gradient(
+    90deg,
+    var(--color-muted) 25%,
+    color-mix(in oklab, var(--color-muted) 60%, var(--color-background)) 50%,
+    var(--color-muted) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}

@@ -76,7 +76,36 @@ heavy_images: true
 | PostCard thumbnails | Astro `<Image>` | Astro `<Image>` |
 | OG/social image | `getImage()` optimized | Raw thumbnail URL |
 
-A remark plugin (`src/lib/heavy-images-remark.mjs`) intercepts markdown image nodes and converts them to raw HTML `<img>` tags before Astro's image pipeline runs.
+A remark plugin (`src/lib/heavy-images-remark.mjs`) intercepts markdown image nodes and converts them to raw HTML `<img>` tags before Astro's image pipeline runs. These are wrapped in `<div class="bg-muted">` containers so they get the shimmer loading placeholder.
+
+## Image loading placeholders
+
+All images use a shimmer animation while loading to prevent content shift and indicate loading state:
+
+- **Photowall images**: Inline `style="aspect-ratio:3/2"` on `<img>`, cleared via `onload` to render at natural ratio.
+- **Blog post thumbnail**: `style="aspect-ratio:16/10"` on `<Image>`, cleared via `onload`.
+- **Heavy content images**: Wrapped in `bg-muted` container by remark plugin, with `aspect-ratio:3/2` cleared on load.
+- **PostCard thumbnails / Photowall on index**: Already have fixed `aspect-*` containers — no extra placeholder needed.
+- **Rolling hero**: Absolutely positioned, no layout shift.
+
+Global shimmer CSS in `styles.css`: `.bg-muted:has(img:not([complete]))` applies a gradient shimmer to any `bg-muted` container with a loading image.
+
+## Markdown processing (Astro 7)
+
+Astro 7 deprecated `markdown.remarkPlugins` / `markdown.rehypePlugins` in `astro.config.mjs`. Use `markdown.processor` with `unified()` from `@astrojs/markdown-remark` instead:
+
+```js
+import { unified } from "@astrojs/markdown-remark";
+
+export default defineConfig({
+  markdown: {
+    processor: unified({
+      remarkPlugins: [remarkMath, heavyImagesRemark],
+      rehypePlugins: [rehypeKatex],
+    }),
+  },
+});
+```
 
 ## Site URL
 
