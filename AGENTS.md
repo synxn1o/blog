@@ -8,7 +8,7 @@ Astro 7 magazine theme. Single-package, no monorepo.
 
 ```bash
 npm run dev        # astro dev server
-npm run build      # astro build + prune unused raster images (scripts/prune-unused-assets.mjs) + build Pagefind index (scripts/build-pagefind.mjs)
+npm run build      # astro build + post-build (scripts/post-build.mjs)
 npm run preview    # serve production build
 npm run format     # prettier --write .
 ```
@@ -29,7 +29,7 @@ Both `package-lock.json` and `bun.lock` exist. The project uses npm for scripts.
 - **Layouts**: single `src/layouts/BaseLayout.astro`
 - **Styles**: `src/styles.css` — Tailwind v4 import, `@font-face` declarations, CSS custom properties (oklch), custom `@utility` blocks (`prose-article`, `callout`), dark mode variant.
 - **SEO files**: `src/pages/sitemap.xml.js`, `src/pages/robots.txt.js`, `src/pages/rss.xml.js`
-- **Post-build scripts**: `scripts/prune-unused-assets.mjs` removes unreferenced `.jpg/.png` from `dist/_astro/`; `scripts/build-pagefind.mjs` builds the Pagefind search index from `dist/client/`.
+- **Post-build scripts**: `scripts/post-build.mjs` is the single entry point, importing and running: `fix-wrangler-config.mjs` (strips `legacy_env`, adds `assets.not_found_handling: "404-page"` so Cloudflare serves `404.html` for missing routes), `prune-unused-assets.mjs` (removes unreferenced `.jpg/.png` from `dist/_astro/`), and `build-pagefind.mjs` (builds the Pagefind search index from `dist/client/`).
 - **Search**: Pagefind (post-build full-text indexing). Headless API in archive page (`src/pages/blog/index.astro`). Scoped to `data-pagefind-body` on `<article>` to exclude nav/footer. CJK character-level indexing is automatic. Single `en` language index used so all posts are searchable from any page — per-post `lang` field exists in schema but is not wired to `<html lang>` to avoid splitting the index.
 - **Remote images**: Only allowed from `blogimg.liuxy.space` (configured in `astro.config.mjs` `image.remotePatterns`).
 

@@ -1,5 +1,5 @@
 import { execSync } from "node:child_process";
 
-execSync("npx pagefind --site dist/client --force-language en", {
-  stdio: "inherit",
-});
+export function buildPagefind(site = "dist/client") {
+  execSync(`npx pagefind --site ${site} --force-language en`, { stdio: "inherit" });
+}
