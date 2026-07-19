@@ -123,12 +123,12 @@ const jsonLd = {
           author && (
             authorUrl ? (
               <a href={authorUrl} target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 hover:text-foreground">
-                <img src={author.avatar} alt="" width="28" height="28" class="h-7 w-7 rounded-full" />
+                <img src={author.avatar} alt="" width="28" height="28" class="h-7 w-7 rounded-full" loading="eager" decoding="async" />
                 {author.name}
               </a>
             ) : (
               <span class="flex items-center gap-2">
-                <img src={author.avatar} alt="" width="28" height="28" class="h-7 w-7 rounded-full" />
+                <img src={author.avatar} alt="" width="28" height="28" class="h-7 w-7 rounded-full" loading="eager" decoding="async" />
                 {author.name}
               </span>
             )
@@ -154,6 +154,7 @@ const jsonLd = {
               sizes="(min-width: 1024px) 896px, calc(100vw - 40px)"
               format="webp"
               quality={78}
+              decoding="async"
               inferSize
             />
           </div>
@@ -219,7 +220,7 @@ const jsonLd = {
         {
           author && (
             <div class="mt-10 flex items-start gap-4 rounded-md border border-border p-5">
-              <img src={author.avatar} alt="" width="56" height="56" class="h-14 w-14 rounded-full" />
+              <img src={author.avatar} alt="" width="56" height="56" class="h-14 w-14 rounded-full" loading="lazy" decoding="async" />
               <div>
                 <div class="text-xs uppercase tracking-wider text-muted-foreground">Written by</div>
                 {authorUrl ? (

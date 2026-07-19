@@ -54,7 +54,7 @@ const friends = authors.filter((a) => a.display !== false && a.url);
         <div class="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {friends.map((friend) => (
             <a href={friend.url} target="_blank" rel="noopener noreferrer" class="group flex items-start gap-3">
-              <img src={friend.avatar} alt="" width="48" height="48" class="h-12 w-12 rounded-full object-cover" />
+              <img src={friend.avatar} alt="" width="48" height="48" class="h-12 w-12 rounded-full object-cover" decoding="async" />
               <div>
                 <div class="font-serif text-base font-semibold group-hover:text-primary">{friend.name}</div>
                 <div class="mt-1 text-sm text-muted-foreground">{friend.bio}</div>
