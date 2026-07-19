@@ -21,7 +21,7 @@ Switched from Hexo to **Astro 7** for better performance, modern DX, and native 
 | Content | MDX + content collections (`src/content/blog/`) |
 | Search | Pagefind (post-build full-text indexing) |
 | Deployment | Cloudflare Workers (`@astrojs/cloudflare` adapter) |
-| Images | Remote CDN at `blogimg.liuxy.space`, build-time optimization |
+| Images | Remote CDN at `cdn.liuxy.space`, build-time optimization |
 | Fonts | Self-hosted woff2: Inter, Fraunces, JetBrains Mono |
 
 ### Key Architecture Decisions
@@ -89,7 +89,7 @@ Dashboard: [https://dash.cloudflare.com/](https://dash.cloudflare.com/)
 
 ## Setting up CDN
 Using Cloudflare R2 stroge services (free plan), I can now store the images and other files in the CDN, which is faster and more reliable than GitHub Pages (though the origin server is still GitHub).
-The blog image bucket is now at [https://blogimg.liuxy.space](https://blogimg.liuxy.space).
+The blog image bucket is now at [https://cdn.liuxy.space](https://cdn.liuxy.space).
 
 ## Notes
 

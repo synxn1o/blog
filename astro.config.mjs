@@ -19,7 +19,7 @@ export default defineConfig({
     provider: cacheCloudflare(),
   },
   image: {
-    remotePatterns: [{ protocol: "https", hostname: "blogimg.liuxy.space" }],
+    remotePatterns: [{ protocol: "https", hostname: "cdn.liuxy.space" }],
   },
   markdown: {
     processor: unified({

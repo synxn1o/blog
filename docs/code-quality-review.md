@@ -178,7 +178,7 @@ Production builds on Cloudflare are unaffected (UTC), but any local build or CI 
 
 The photowall page renders images with plain `<img>` tags sourced from external URLs. No `srcset`, no `sizes`, no WebP/AVIF format negotiation. Every visitor downloads the same full-resolution image regardless of viewport size.
 
-Note: The images are hosted on `blogimg.liuxy.space` which may not support server-side resizing, limiting what's actionable from code. Lazy loading is already implemented.
+Note: The images are hosted on `cdn.liuxy.space` which may not support server-side resizing, limiting what's actionable from code. Lazy loading is already implemented.
 
 **Fix:** If the CDN supports on-the-fly resizing, construct `srcset` URLs. Otherwise, add `width`/`height` attributes to prevent CLS and `decoding="async"`.
 
@@ -740,7 +740,7 @@ The archive search input value from the URL is rendered into the DOM using `text
 
 - **File:** `astro.config.mjs:21`
 
-The `image.remotePatterns` configuration restricts Astro's image optimization to only `blogimg.liuxy.space` over HTTPS. This is good security practice that prevents SSRF-like image optimization requests to arbitrary hosts.
+The `image.remotePatterns` configuration restricts Astro's image optimization to only `cdn.liuxy.space` over HTTPS. This is good security practice that prevents SSRF-like image optimization requests to arbitrary hosts.
 
 **Fix:** No action needed. Add future external image sources explicitly to `remotePatterns`.
 

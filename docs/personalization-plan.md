@@ -206,7 +206,7 @@ post.original_link > author.url > 只显示名字 (不可点)
 - [ ] 确认最终部署到哪里
 
 ### 8.3 远程图片域名
-- [ ] 图片来自 `blogimg.liuxy.space`, 确认这个 CDN 长期可用
+- [ ] 图片来自 `cdn.liuxy.space`, 确认这个 CDN 长期可用
 - [ ] `astro.config.mjs` 的 `remotePatterns` 已配置此域名
 
 ---
