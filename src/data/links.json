@@ -3,9 +3,9 @@
     "category": "Blogs I Read",
     "links": [
       {
-        "title": "橘鸦AI早报",
-        "url": "https://daily.juya.uk/",
-        "description": "Daily AI news."
+        "title": "二叉树树",
+        "url": "https://2x.nz/",
+        "description": "Blog前端搭建, Cloudflare集成实践...帮助莫大"
       }
     ]
   },
@@ -26,6 +26,11 @@
   {
     "category": "Other",
     "links": [
+      {
+        "title": "橘鸦AI早报",
+        "url": "https://daily.juya.uk/",
+        "description": "Daily AI news."
+      }
     ]
   }
 ]
