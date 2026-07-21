@@ -1,10 +1,10 @@
 ---
-title: 意大利学习行前材料信息备忘 -- Erasmus Mundus MATHS-DISC
+title: 意大利学习行前材料信息备忘
 date: 2026-07-21
 category: Notes
 tags:
   - visa
-excerpt: 意大利学习行前材料信息备忘, 包括签证文件, 以及住房资源
+excerpt: 意大利学习行前材料信息备忘, 包括签证文件, 以及维罗纳住房资源. Erasmus Mundus MATHS-DISC at UNIVR.
 author: Xiaoyun
 heavy_images: false
 toc: true
