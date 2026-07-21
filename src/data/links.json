@@ -5,7 +5,7 @@
       {
         "title": "二叉树树",
         "url": "https://2x.nz/",
-        "description": "Blog前端搭建, Cloudflare集成实践. 对本站搭建帮助莫大"
+        "description": "Blog前端搭建, Cloudflare集成实践. 对本站搭建帮助莫大."
       }
     ]
   },
@@ -16,6 +16,11 @@
         "title": "Alex Webb",
         "url": "https://www.magnumphotos.com/photographer/alex-webb/",
         "description": "A famous Magnum photographer."
+      },
+      {
+        "title": "Chris Yan",
+        "url": "https://www.chrisyanyan.com/",
+        "description": "Beijing street photographer and creative director."
       }
     ]
   },
